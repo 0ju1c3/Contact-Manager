@@ -1,16 +1,12 @@
 const express = require('express')
+const { registerUser, loginUser, currentUser } = require('../controller/userController')
 const router = express.Router()
+const validateToken = require("../middleware/validateTokenHandler")
 
-router.post("/register",(req,res)=>{
-  res.json({message:"Register the user"})
-})
+router.post("/register",registerUser)
 
-router.post("/login",(req,res)=>{
-  res.json({message:"Login user"})
-})
+router.post("/login",loginUser)
 
-router.post("/current",(req,res)=>{
-  res.json({message:"Current user information"})
-})
+router.post("/current",validateToken,currentUser)//private route
 
 module.exports = router
